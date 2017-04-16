@@ -1,0 +1,323 @@
+\mode<presentation>
+
+%
+% ------ PACKAGES
+%
+\usepackage{pgfcomp-version-0-65}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{tabularx}
+
+\usepackage{cmap}
+\usepackage{tikz}
+\usepackage{pbox}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{textpos}
+\usepackage{epstopdf}
+\usepackage{ulem}
+\usepackage{dcolumn}
+\usepackage{minted}
+
+%
+% ------ PDF OUTPUT
+%
+\pdfpkresolution=1200
+\pdfcompresslevel=9
+
+% enable for better font rendering
+%\pdfpkmode={supre}
+
+
+% ------------ MISC COLORS
+
+
+\setbeamercolor{section in toc}{fg = black}
+\setbeamercolor{section in toc shaded}{fg = black}
+\setbeamercolor{description item}{fg = black}
+\setbeamercolor{caption}{fg = black}
+\setbeamercolor{caption name}{fg = black}
+
+\setbeamercolor{block title}{fg = white, bg = black}
+\setbeamercolor{block body}{bg = grey}
+
+\setbeamercolor{normal text}{fg = black}
+
+\definecolor{grey}{rgb}{.85,.85,.85}
+\definecolor{darkgreen}{rgb}{.05,.55,.05}
+
+\definecolor{niceblue}{rgb}{0.38, 0.55, 0.66}
+\setbeamercolor{itemize item}{fg = niceblue}
+\setbeamercolor{itemize subitem}{fg = niceblue}
+\setbeamercolor{itemize subsubitem}{fg = niceblue}
+
+%
+% ------ FONTS
+%
+
+\usefonttheme{professionalfonts}
+
+% Sans is the default font
+\renewcommand{\familydefault}{\sfdefault}
+
+
+%
+% ------ TIKZ DEFINITIONS
+%
+\usetikzlibrary{shapes.callouts,calc,arrows,shapes}
+
+% Reflow tikz coordinates
+\tikzstyle{every picture}+=[remember picture]
+
+
+% Java Memory Model notations:
+\definecolor{gold}{rgb}{0.85,.66,0}
+\tikzstyle{na} = [baseline=-0.5ex]
+\tikzstyle{main} = [rectangle,fill=cyan!10,draw,font=\ttfamily\small\bfseries]
+\tikzstyle{hidden node} = [rectangle,fill=white,font=\ttfamily\small\bfseries]
+\tikzstyle{acqrel node} = [rectangle,fill=gold!20,draw,font=\ttfamily\small\bfseries]
+\tikzstyle{po label} = [fill=cyan!30,font=\ttfamily\small\bfseries]
+\tikzstyle{hb label} = [fill=gold!30,font=\ttfamily\small\bfseries]
+\tikzstyle{so label} = [fill=red!30,font=\ttfamily\small\bfseries]
+\tikzstyle{sw label} = [fill=blue!30,font=\ttfamily\small\bfseries]
+\tikzstyle{mc label} = [fill=blue!30,font=\ttfamily\small\bfseries]
+\tikzstyle{dr label} = [fill=green!30,font=\ttfamily\small\bfseries]
+\tikzstyle{race label} = [fill=red,font=\ttfamily\small\bfseries,text=white]
+\tikzstyle{po edge} = [draw=cyan!30,thick,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{hb edge} = [draw=gold!50,thick,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{so edge} = [draw=red!30,thick,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{so? edge} = [draw=red!30,thick,dashed,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{sw edge} = [draw=blue!30,thick,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{mc edge} = [draw=blue!30,thick,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{dr edge} = [draw=green!30,thick,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{race edge} = [draw=red,thick,dashed,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{reorderG edge} = [draw=green,thick,dashed,line width=2,font=\ttfamily\small\bfseries]
+\tikzstyle{reorderB edge} = [draw=red!30,thick,dashed,line width=2,font=\ttfamily\small\bfseries]
+
+\newcommand{\po}{\xrightarrow{\fcolorbox{cyan!30}{cyan!30}{\scriptsize po}}}
+\newcommand{\hb}{\xrightarrow{\fcolorbox{gold!30}{gold!30}{\scriptsize hb}}}
+
+\newcommand{\pohb}{\xrightarrow{\fcolorbox{gold!30}{gold!30}{\scriptsize po/hb}}}
+
+\newcommand{\race}{\xrightarrow{\fcolorbox{red}{red}{\color{white} \scriptsize race}}}
+\newcommand{\so}{\xrightarrow{\fcolorbox{red!30}{red!30}{\scriptsize so}}}
+\newcommand{\sw}{\xrightarrow{\fcolorbox{blue!30}{blue!30}{\scriptsize sw}}}
+\newcommand{\dr}{\xrightarrow{\fcolorbox{green!30}{green!30}{\scriptsize dr}}}
+\newcommand{\mc}{\xrightarrow{\fcolorbox{blue!30}{blue!30}{\scriptsize mc}}}
+
+\newcommand{\hbO}{\fcolorbox{gold!30}{gold!30}{HB}}
+\newcommand{\poO}{\fcolorbox{cyan!30}{cyan!30}{PO}}
+\newcommand{\soO}{\fcolorbox{red!30}{red!30}{SO}}
+\newcommand{\swO}{\fcolorbox{blue!30}{blue!30}{SW}}
+
+\newcommand{\alertA}[1]{\fcolorbox{cyan!30}{cyan!30}{$#1$}}
+\newcommand{\alertF}[1]{\fcolorbox{red}{red!30}{$#1$}}
+
+%
+% ------ SET UP THE THEME
+%
+
+\useinnertheme{default}
+
+% TITLE PAGE SETUP:
+
+% Fonts
+\setbeamerfont{title}{size = \large, series=\bfseries}
+\setbeamerfont{subtitle}{size = \small}
+\setbeamerfont{author}{size = \small, series=\bfseries}
+
+% Background on first slide only:
+\setbeamertemplate{background canvas}{
+    \ifnum\c@framenumber=1
+	\includegraphics[width=\paperwidth,height=\paperheight]{redhat.png}
+    \fi
+}
+
+\setbeamercolor{title page}{fg = white}
+
+\setbeamertemplate{title page}{
+\vspace*{-60mm}
+% Talk title:
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.06\paperwidth]{Title}
+        \usebeamerfont{title}
+        \hspace{17.5mm}\vspace{-45mm}
+        \inserttitle
+    \end{beamercolorbox}
+
+% Talk subtitle:
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.03\paperwidth]{Title}
+        \usebeamerfont{subtitle}%
+        \hspace{20mm}\vspace{-45mm}
+   	\insertsubtitle
+    \end{beamercolorbox}
+
+% Talk author:
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.06\paperwidth]{Title}
+        \usebeamerfont{author}%
+        \hspace{20mm}\vspace{-45mm}
+        \insertauthor
+    \end{beamercolorbox}
+
+% Talk author affiliation:
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.03\paperwidth]{Title}
+        \usebeamerfont{author}%
+        \hspace{20mm}\vspace{-45mm}
+        \insertinstitute
+    \end{beamercolorbox}
+
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.03\paperwidth]{Title}
+        \usebeamerfont{author}%
+        \hspace{20mm}\vspace{-45mm}
+    \end{beamercolorbox}
+}
+
+% OTHER TEMPLATES
+
+\setbeamertemplate{headline}[text line]{}
+
+\setbeamertemplate{sidebar canvas right}{}
+\setbeamertemplate{navigation symbols}{}
+
+
+% LISTS
+
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
+
+\setbeamertemplate{itemize item}{\color{OracleBlue}\tiny$^\blacksquare$}
+\setbeamertemplate{itemize subitem}{\color{OracleBlue}{--}}
+
+\setbeamertemplate{itemize items}[square]
+\setbeamertemplate{enumerate items}[default]
+
+\setbeamercolor{item}{fg = black}
+\setbeamercolor{subitem}{fg = black}
+\setbeamercolor{subsubitem}{fg = black}
+
+% TITLE/FOOTER
+
+\setbeamercolor{frametitle}{fg = black}
+\setbeamercolor{title in head/foot}{fg = gray}
+
+\setbeamerfont{frametitle}{size = \large, series=\bfseries}
+
+% Define a command for the frame title style:
+%  "<section name>: <slide name>", if <section name> is present
+%  "<slide name>", otherwise
+\newcommand{\Title}{
+  \setbeamertemplate{frametitle}{
+    \vspace*{4mm}\hspace*{-4.5mm}
+    \ifdefempty{\insertsubsection}{\ifdefempty{\insertsection}{}{\insertsection:}}{\insertsubsection:}
+    \insertframetitle
+  }
+}
+
+
+% Define a command for frame footline style:
+% Everywhere except for title slide.
+\newcommand{\Footline}{
+\setbeamertemplate{footline}{
+  \ifnum\c@framenumber=1
+  \else
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex, wd=\paperwidth]{title in head/foot}
+        \tiny\hspace*{4mm} Slide \insertframenumber/\inserttotalframenumber.
+        \q{\inserttitle}, \insertauthor, \the\year, \pdffilemoddate{\jobname.tex}
+        \hfill
+        \includegraphics[height=0.05\paperheight]{rh-logo.pdf}
+        \hspace{4mm} \vspace{1pt}
+    \end{beamercolorbox}
+  \fi
+}
+}
+
+% Default title and footline setup
+\Title
+\Footline
+
+% Override section slides: no title/footers, just the name
+\AtBeginSection[]
+{
+  \setbeamertemplate{frametitle}{}
+  \setbeamertemplate{footline}{}
+  \begin{frame}<beamer>
+  \usebeamerfont{title}
+  \fcolorbox{white}{white}{\insertsection}
+  \end{frame}
+  \Title
+  \Footline
+}
+
+
+%
+% ------ LISTINGS
+%
+
+% Java Listings
+\newenvironment{listjava}
+{%
+\VerbatimEnvironment%
+\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}%
+\begin{figure}[thp]\centering\begin{minted}[tabsize=2,escapeinside=~~,fontsize=\small]{java}%
+}%
+{%
+\end{minted}\end{figure}%
+}
+
+% Plain text listings
+\newenvironment{listplain}
+{%
+\VerbatimEnvironment%
+\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}%
+\begin{figure}[thp]\centering\begin{minted}[fontsize=\small]{console}%
+}%
+{%
+\end{minted}\end{figure}%
+}
+
+% Assembler listings
+\newenvironment{listasm}
+{%
+\VerbatimEnvironment%
+\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}%
+\begin{figure}[thp]\centering\begin{minted}[tabsize=2,fontsize=\small]{gas}%
+}%
+{%
+\end{minted}\end{figure}%
+}
+
+%
+% ------ MISC
+%
+
+% Proper quotes
+\newcommand{\q}[1]{\guillemotleft#1\guillemotright}
+
+% Centered anything, notably lists
+\newenvironment{clist}
+{\begin{center}\begin{tabular}{c}}
+{\end{tabular}\end{center}}
+
+% Safe harbor slide with any caveat wording
+\newcommand{\safeharbor}{
+\begin{frame}
+\frametitle{Safe Harbor / Тихая Гавань}
+   \begin{center}
+   Everything on this and any subsequent slides may be a lie.
+   Do not base your decisions on this talk.
+   If you do, ask for professional help.
+   \end{center}
+   \begin{center}
+   Всё что угодно на этом слайде, как и на всех следующих, может быть враньём.
+   Не принимайте решений на основании этого доклада.
+   Если всё-таки решите принять, то наймите профессионалов.
+   \end{center}
+\end{frame}
+}
+
+\mode
+<all>
