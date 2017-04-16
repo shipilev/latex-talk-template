@@ -1,0 +1,9 @@
+LaTeX/Beamer templates
+---------------------------------------------------------------------
+
+The most important part is in "texmf": Beamer templates. These
+templates can be put at local ~/texmf to be shared across different
+talks. It is put here locally for convenience.
+
+Makefile is not needed too, you can just invoke pdflatex if everything
+is in PATH. Again, this project has it for convenience.
